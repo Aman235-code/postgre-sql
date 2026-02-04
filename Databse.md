@@ -286,3 +286,93 @@ SELECT CONCAT_WS(':',name, ' ', category) from products;
 ```bash
 SELECT REPLACE(sku_code, left(sku_code, 2), 'GG') from products;
 ```
+
+# Alter table
+
+- add new columns
+- remove
+- rename
+- change data types
+- set/remove default values
+- add/remove constraints
+- rename table
+
+- first create the table 
+
+```bash
+CREATE TABLE student (
+	student_id SERIAL PRIMARY KEY,
+	name VARCHAR(100),
+	age BIGINT
+);
+```
+
+- Add a new column
+
+```bash
+ALTER TABLE student
+ADD COLUMN email VARCHAR(100); # default null values in this column
+```
+
+- remove a column
+
+```bash
+ALTER TABLE student
+DROP COLUMN email;
+```
+
+- to provide email with default value
+
+```bash
+ALTER TABLE student
+ADD COLUMN email VARCHAR(100) DEFAULT 'not provided';
+```
+
+- rename column
+
+```bash
+ALTER TABLE student
+RENAME COLUMN name TO full_name;
+```
+
+- Change data type of a column 
+
+```bash
+ALTER TABLE student
+ALTER COLUMN age TYPE SMALLINT;
+```
+
+- set default value
+
+```bash
+ALTER TABLE student
+ALTER COLUMN age SET DEFAULT 18;
+```
+
+- remove default value
+
+```bash
+ALTER TABLE student
+ALTER COLUMN age DROP DEFAULT;
+```
+
+- add a constraint
+
+```bash
+ALTER TABLE student
+ADD CONSTRAINT age_check CHECK (age >=0);
+```
+
+- drop a constraint
+
+```bash
+ALTER TABLE student
+DROP CONSTRAINT age_check;
+```
+
+- rename table
+
+```bash
+ALTER TABLE student
+RENAME TO school_students;
+```

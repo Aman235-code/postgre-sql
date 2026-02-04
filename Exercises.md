@@ -80,3 +80,4 @@ SELECT name as item_name, price as item_price FROM products;
 ```bash
 SELECT DISTINCT category FROM products;
 ```
+

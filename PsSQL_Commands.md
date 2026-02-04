@@ -18,6 +18,12 @@ CREATE DATABASE new_db;
 \c new_db;
 ```
 
+- to see the column desc
+
+```bash
+\d new_db;
+```
+
 - You are now connected to database "new_db" as user "postgres".
 
 # Insert inot the tables (specific values)
