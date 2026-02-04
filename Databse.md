@@ -446,3 +446,92 @@ select name, stock_quantity,
 	END AS label
 FROM products;
 ```
+
+# Relationships
+
+- tables are connected to one another through relationships in relational db.
+- instead of repeating same data again and again in one huge table, we split it into smaller,
+meaningful tables and connect them using keys (primary and foreign)
+
+- types
+- One to One, One to Many (most common), Many to Many
+- One to One -> student and stuudent_profile (student_id is FK and PK)
+- One to Many -> student and student_marks (One students have multiple marks in multpiple subjects)
+- Many to Many -> student and courses (we create third table junction table)
+
+- one to one
+
+```bash
+CREATE TABLE students (
+	student_id SERIAL PRIMARY KEY,
+	name VARCHAR(100) NOT NULL
+);
+
+INSERT INTO students (name)
+VALUES
+('Aman'), 
+('Ayan'),
+('Alok');
+
+SELECT * FROM students;
+
+
+CREATE TABLE student_profiles (
+	student_id INT PRIMARY KEY,
+	address TEXT,
+	age INT,
+	phone VARCHAR(15)
+);
+
+
+INSERT INTO student_profiles (student_id, address, age, phone) 
+VALUES
+(1, 'Delhi, India', 22, '999999999'),
+(2, 'Mumbai, India', 21, '8888888888'),
+(3, 'Bangalore, India', 23, '7777777777');
+
+SELECT * FROM student_profiles
+
+
+ALTER TABLE student_profiles
+ADD CONSTRAINT fk_student_id
+FOREIGN KEY (student_id) 
+REFERENCES students(student_id);
+
+
+SELECT s.student_id, s.name, sp.address, sp.age, sp.phone
+FROM students s
+JOIN student_profiles sp
+ON s.student_id = sp.student_id;
+```
+
+- One to Many
+
+```bash
+CREATE TABLE students (
+	student_id SERIAL PRIMARY KEY,
+	name VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE marks (
+	mark_id SERIAL PRIMARY KEY,
+	student_id INT,
+	subject VARCHAR(50),
+	marks INT,
+	FOREIGN KEY (student_id) REFERENCES students(student_id)
+);
+
+INSERT INTO students (name)
+VALUES
+('Aman'), 
+('Ayan'),
+('Alok');
+
+INSERT INTO marks (student_id, subject, marks)
+VALUES
+(1, 'English', 85), (1, 'Math', 89), (1, 'Science', 92),
+(2, 'English', 80), (2, 'Math', 75), (2, 'Science', 78),
+(3, 'English', 72), (3, 'Math', 70), (3, 'Science', 74);
+
+SELECT * FROM marks;
+```
