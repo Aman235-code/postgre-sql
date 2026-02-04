@@ -376,3 +376,73 @@ DROP CONSTRAINT age_check;
 ALTER TABLE student
 RENAME TO school_students;
 ```
+
+# Case
+- conditional expression that works like an if else switch statements.
+- lets you return different values based on different conditions all within a single query
+
+- syntax
+
+```bash
+SELECT 
+	column1,
+	CASE
+		WHEN condition1 THEN result1
+		WHEN condition2 THEN result2
+		....
+
+		ELSE default_result
+	END AS new_colum_name
+FROM table_name;
+```
+
+- example
+
+```bash
+select name, price,
+	CASE 
+		WHEN (price > 1000) THEN 'Expensive'
+		WHEN (price BETWEEN 500 AND 1000) THEN 'Moderate'
+		ELSE 'Cheap'
+	END AS price_tag
+FROM products;
+```
+
+- this creates a virtual table but you can also alter real data
+
+```bash
+ALTER TABLE products
+ADD COLUMN price_tag text;
+
+select * from products;
+
+UPDATE products
+SET price_tag = 
+CASE 
+		WHEN (price > 1000) THEN 'Expensive'
+		WHEN (price BETWEEN 500 AND 1000) THEN 'Moderate'
+		ELSE 'Cheap'
+END;
+
+select * from products;
+```
+ - examples 
+
+```bash
+select name, is_available,
+	CASE 
+		WHEN is_available THEN 'in_stock'
+		ELSE 'out of stock'
+	END AS stock
+FROM products;
+```
+
+```bash
+select name, stock_quantity,
+	CASE 
+		WHEN (stock_quantity > 100) THEN 'High Stock'
+		WHEN (stock_quantity BETWEEN 30 and 100) THEN 'Medium Stock'
+		ELSE 'Low Stock'
+	END AS label
+FROM products;
+```
