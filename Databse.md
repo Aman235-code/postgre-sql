@@ -535,3 +535,46 @@ VALUES
 
 SELECT * FROM marks;
 ```
+
+# Joins
+
+- combine rows from 2/more tables based on realted columns
+- a primary key in one table and a foreign key in another table
+
+- Inner Join: returns only matching rows in both tables
+
+- syntax
+
+```bash
+SELECT columns
+FROM table1
+JOIN table2
+ON table1.common_col = table2.common_col;
+
+
+select s.name, m.subject, m.marks from students s
+join marks m on 
+s.student_id = m.student_id;
+
+select s.name, m.subject, m.marks from students s
+join marks m on 
+s.student_id = m.student_id
+where s.name = 'Aman';
+```
+- Left Join: Returns all rows from Left and mathing rows from right
+
+```bash
+select s.name, m.subject, m.marks from students s
+left join marks m on 
+s.student_id = m.student_id;
+```
+
+- right join: all rows from right and mathing rows from left
+
+```bash
+select s.name, m.subject, m.marks from students s
+right join marks m on 
+s.student_id = m.student_id;
+```
+
+- full join: all rows from both table
