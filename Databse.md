@@ -578,3 +578,33 @@ s.student_id = m.student_id;
 ```
 
 - full join: all rows from both table
+
+# Many to Many Relationship
+
+- One row in table A can be linked to many rows in table B and vice versa
+
+# Views
+
+- virtual tabke based on sql query.
+- doesn't store actual data but shows results when accessed
+
+```bash
+CREATE VIEW view_name AS
+SELECT col1, col2
+FROM table 
+WHERE condition;
+
+create view fitness_items AS
+select product_id, name, price, stock_quantity 
+from products 
+where category='Fitness';
+
+select * from fitness_items;
+
+create view low_stock AS
+select name, category, stock_quantity 
+from products 
+where stock_quantity < 30;
+
+select * from low_stock;
+```
