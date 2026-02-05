@@ -608,3 +608,42 @@ where stock_quantity < 30;
 
 select * from low_stock;
 ```
+
+# Procedures
+
+- Block of SQL code that performs a series of operations - like inserting, updating, deleting/selecting data and stored in database.
+
+```bash
+CREATE PROCEDURE procedure_name(param1 datatype, param2 datatype)
+LANGUAGE plpgsql
+AS $$
+BEGIN 
+	--your sql logic here
+END:
+$$;
+
+CALL procedure_name(value1, value2);
+```
+
+- procedure to add a product
+
+```bash
+CREATE PROCEDURE add_product(
+    p_name VARCHAR,
+    p_sku CHAR(8),
+    p_price NUMERIC,
+    p_qty INT,
+    p_category TEXT
+)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    INSERT INTO products(name, sku_code, price, stock_quantity, category)
+    VALUES (p_name, p_sku, p_price, p_qty, p_category);
+
+    RAISE NOTICE 'Product added successfully!';
+END;
+$$;
+
+call add_product('bottle', 'bo123456', 234.00, 45, 'Fitness');
+```
